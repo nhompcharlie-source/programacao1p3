@@ -1,5 +1,4 @@
 import { ToDo, Item } from "./core";
-
 const filepath = "./lista.json";
 const todo = new ToDo(filepath);
 const port = 3000;
