@@ -12,10 +12,8 @@ const server = Bun.serve({
     const pathname = url.pathname;
     const searchParams = url.searchParams;
 
-    // Log de requisições (Atividade de Fixação)
     console.log(`[${new Date().toISOString()}] ${method} ${pathname}`);
 
-    // --- ROTAS DE ARQUIVOS ESTÁTICOS (FRONTEND) ---
     if (pathname === "/" && method === "GET") {
       return new Response(Bun.file("index.html"));
     }
@@ -26,9 +24,6 @@ const server = Bun.serve({
       return new Response(Bun.file("app.js"));
     }
 
-    // --- ROTAS DA API REST ---
-    
-    // GET /items - listar todos os itens
     if (pathname === "/items" && method === "GET") {
       const items = await todo.getItems();
       const itemsData = items.map(item => item.toJSON());
@@ -37,13 +32,11 @@ const server = Bun.serve({
       });
     }
 
-    // POST /items - adicionar novo item
     if (pathname === "/items" && method === "POST") {
       try {
         const body = await request.json();
         const { description } = body;
         
-        // Validação (Atividade de Fixação)
         if (!description || typeof description !== 'string') {
           return new Response(JSON.stringify({ error: "Descrição é obrigatória e deve ser texto." }), {
             status: 400,
@@ -63,7 +56,6 @@ const server = Bun.serve({
       }
     }
 
-    // PUT /items?index=X - atualizar item
     if (pathname === "/items" && method === "PUT") {
       try {
         const index = parseInt(searchParams.get("index") || "");
@@ -91,7 +83,6 @@ const server = Bun.serve({
       }
     }
 
-    // DELETE /items?index=X - remover item
     if (pathname === "/items" && method === "DELETE") {
       try {
         const index = parseInt(searchParams.get("index") || "");

@@ -3,14 +3,12 @@ const form = document.getElementById('todo-form');
 const input = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
-// Carregar tarefas ao abrir a página
 async function fetchTasks() {
     const response = await fetch(API_URL);
     const tasks = await response.json();
     renderTasks(tasks);
 }
 
-// Renderizar a lista na tela
 function renderTasks(tasks) {
     taskList.innerHTML = '';
     tasks.forEach((task, index) => {
@@ -41,7 +39,6 @@ function renderTasks(tasks) {
     });
 }
 
-// Adicionar nova tarefa
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const description = input.value;
@@ -56,7 +53,6 @@ form.addEventListener('submit', async (e) => {
     fetchTasks();
 });
 
-// Atualizar tarefa
 async function updateTask(index, oldDescription) {
     const newDescription = prompt('Editar tarefa:', oldDescription);
     if (newDescription && newDescription !== oldDescription) {
@@ -69,7 +65,6 @@ async function updateTask(index, oldDescription) {
     }
 }
 
-// Remover tarefa
 async function deleteTask(index) {
     if (confirm('Tem certeza que deseja remover esta tarefa?')) {
         await fetch(`${API_URL}?index=${index}`, {
@@ -79,5 +74,4 @@ async function deleteTask(index) {
     }
 }
 
-// Inicia a aplicação
 fetchTasks();
