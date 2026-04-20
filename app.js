@@ -10,7 +10,7 @@ async function fetchTasks() {
 }
 
 function renderTasks(tasks) {
-    taskList.innerHTML = '';
+    taskList.innerHTML = ''; 
     tasks.forEach((task, index) => {
         const li = document.createElement('li');
         
